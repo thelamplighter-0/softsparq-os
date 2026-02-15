@@ -25,14 +25,14 @@ modules:
     kernel: cachyos-lto
     secrets:
       - type: file
-        source: .secure_files/MOK.priv
+        source: MOK.priv
         mount:
           type: file
           destination: /tmp/certs/MOK.priv
     sign:
       key: /tmp/certs/MOK.priv
       cert: /usr/share/cert/MOK.pem
-      mok-password: origami
+      mok-password:
 
   - from-file: core.yml
 
