@@ -1,0 +1,118 @@
+# yaml-language-server: $schema=https://schema.blue-build.org/module-list-v1.json
+modules:
+  - type: systemd
+    system:
+      masked:
+        - NetworkManager-wait-online.service
+        - flatpak-add-fedora-repos.service
+        - bootc-fetch-apply-updates.timer
+    user:
+      enabled:
+        - podman.socket
+
+  - type: dnf
+    repos:
+      cleanup: true
+      copr:
+        - bieszczaders/kernel-cachyos-addons
+        - sneexy/zen-browser
+        - avengemedia/dms
+        - che/zed
+      files:
+        - https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
+        - https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo
+    install:
+      packages:
+        - terra-release
+        - v4l-utils
+        - origami-update-applet
+        - oru
+        - fish
+        - lazygit
+        - procs
+        - du-dust
+        - python3-neovim
+        - topgrade
+        - zen-browser
+        - rsms-inter-fonts
+        - google-noto-sans-myanmar-fonts
+        - google-noto-serif-myanmar-fonts
+        - bibata-cursor-theme
+        - lolcat
+        - figlet
+        - cowsay
+        - btop
+        - fastfetch
+        - podman-compose
+        - aria2
+        - cava
+        - bat
+        - ripgrep
+        - zoxide
+        - yazi
+        - eza
+        - hyperfine
+        - starship
+        - cbonsai
+        - cmatrix
+        - sudo-rs
+        - uutils-coreutils
+        - byobu
+        - micro
+        - system-config-printer
+        - steam-devices
+        - cachyos-settings
+        - scx-scheds
+        - scx-tools
+        - dms
+        - niri
+        - zed
+
+    remove:
+      auto-remove: true
+      packages:
+        - zram-generator-defaults
+        - firefox
+        - firefox-langpacks
+        - gnome-system-monitor
+        - ark
+        - htop
+        - vim
+        - nvtop
+        - just
+        - toolbox
+        - google-noto-color-emoji-fonts
+
+  - type: fonts
+    fonts:
+      nerd-fonts:
+        - JetBrainsMono
+      url-fonts:
+        - name: NotoColorEmoji
+          url: https://github.com/googlefonts/noto-emoji/raw/main/fonts/NotoColorEmoji.ttf
+        - name: Maple-Mono-NF
+          url: https://github.com/subframe7536/maple-font/releases/latest/download/MapleMono-NF-unhinted.zip
+
+  - type: default-flatpaks
+    configurations:
+      - notify: true
+        scope: user
+        repo:
+          name: flathub
+          title: Flathub
+          install:
+            - com.spotify.Client
+            - com.discordapp.Discord
+            - io.anytype.anytype
+            - org.telegram.desktop
+      - notify: true
+        scope: user
+        repo:
+          name: cosmic
+          title: COSMIC
+          url: https://apt.pop-os.org/cosmic/cosmic.flatpakrepo
+
+  - type: script
+    scripts:
+      - adios-ioscheduler.sh
+      - cleanup.sh
